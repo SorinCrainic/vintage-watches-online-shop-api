@@ -1,0 +1,9 @@
+#server.port=8090
+#
+### PostgreSQL
+#spring:
+#    datasource:
+#        url: jdbc:postgresql://localhost:5432/vintage-watches-db
+#        username: postgres
+#        password: fasttrackit
+#    jpa.hibernate.ddl-auto: create
