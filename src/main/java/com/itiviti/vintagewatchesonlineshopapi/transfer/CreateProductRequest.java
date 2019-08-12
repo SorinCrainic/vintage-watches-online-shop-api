@@ -1,19 +1,11 @@
-package com.itiviti.vintagewatchesonlineshopapi.domain;
+package com.itiviti.vintagewatchesonlineshopapi.transfer;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@Entity
-public class Product {
+public class CreateProductRequest {
 
-    @Id
-    @GeneratedValue
-    @NotNull
-    private long id;
     @NotNull
     public String name;
     @NotNull
@@ -28,14 +20,6 @@ public class Product {
     @Min(0)
     @Max(10)
     private double productRate;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -83,5 +67,17 @@ public class Product {
 
     public void setProductRate(double productRate) {
         this.productRate = productRate;
+    }
+
+    @Override
+    public String toString() {
+        return "CreateProductRequest{" +
+                "name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", imagePath='" + imagePath + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", productRate=" + productRate +
+                '}';
     }
 }
