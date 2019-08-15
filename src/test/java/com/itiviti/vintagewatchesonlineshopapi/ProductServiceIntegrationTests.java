@@ -8,6 +8,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.TransactionSystemException;
+
+import javax.validation.ConstraintViolationException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -27,21 +30,29 @@ public class ProductServiceIntegrationTests {
     @Test
     public void testCreateProduct_whenValidRequest_thenReturnCreatedProduct() {
 
-        CreateProductRequest requestTest = new CreateProductRequest();
-        requestTest.setName("Ruhla");
-        requestTest.setPrice(399.00);
-        requestTest.setQuantity(1);
-        requestTest.setProductRate(8);
-        requestTest.setProductDescription("Mechanical chronograph (tachymeter).");
+        CreateProductRequest requestPositiveTest = new CreateProductRequest();
+        requestPositiveTest.setName("Ruhla");
+        requestPositiveTest.setPrice(399.00);
+        requestPositiveTest.setQuantity(1);
+        requestPositiveTest.setProductRate(8);
+        requestPositiveTest.setProductDescription("Mechanical chronograph (tachymeter).");
 
-        Product createdProductTest = productServiceTest.createProduct(requestTest);
+        Product createdProductTest = productServiceTest.createProduct(requestPositiveTest);
 
         assertThat(createdProductTest, notNullValue());
         assertThat(createdProductTest.getId(), greaterThan(0L));
-        assertThat(createdProductTest.getName(), is(requestTest.getName()));
-        assertThat(createdProductTest.getPrice(), is(requestTest.getPrice()));
-        assertThat(createdProductTest.getQuantity(), is(requestTest.getQuantity()));
-        assertThat(createdProductTest.getProductRate(),is(requestTest.getProductRate()));
-        assertThat(createdProductTest.getProductDescription(),is(requestTest.getProductDescription()));
+        assertThat(createdProductTest.getName(), is(requestPositiveTest.getName()));
+        assertThat(createdProductTest.getPrice(), is(requestPositiveTest.getPrice()));
+        assertThat(createdProductTest.getQuantity(), is(requestPositiveTest.getQuantity()));
+        assertThat(createdProductTest.getProductRate(),is(requestPositiveTest.getProductRate()));
+        assertThat(createdProductTest.getProductDescription(),is(requestPositiveTest.getProductDescription()));
+    }
+
+    //Test for method createProduct: negative test (not valid request -> missing mandatory parameter, for example)
+    @Test (expected = TransactionSystemException.class)
+    public void testCreateProduct_whenNotValidRequest_thenThrowException() {
+
+        CreateProductRequest requestNegativeTest = new CreateProductRequest();
+        productServiceTest.createProduct(requestNegativeTest);
     }
 }

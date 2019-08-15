@@ -8,9 +8,8 @@ public class CreateProductRequest {
 
     @NotNull
     public String name;
-    @NotNull
     @Min(0)
-    private int quantity;
+    private Integer quantity;
     @NotNull
     private double price;
     private String imagePath;
@@ -29,7 +28,7 @@ public class CreateProductRequest {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
