@@ -71,4 +71,10 @@ public class ProductServiceIntegrationTests {
         assertThat(retrievedProduct, notNullValue());
         assertThat(retrievedProduct.getId(), is(createdProductTest.getId()));
     }
+
+    //2.2 Test for method getProduct: negative test (not valid request)
+    @Test (expected = ProductNotFoundException.class)
+    public void testGetProduct_whenNonValidRequest_thenThrowException() throws ProductNotFoundException {
+        productServiceTest.getProduct(1250L);
+    }
 }
