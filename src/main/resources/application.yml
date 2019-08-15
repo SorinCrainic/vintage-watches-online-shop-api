@@ -6,4 +6,7 @@
 #        url: jdbc:postgresql://localhost:5432/vintage-watches-db
 #        username: postgres
 #        password: fasttrackit
-#    jpa.hibernate.ddl-auto: create
+#    jpa:
+#        hibernate.ddl-auto: create
+#        properties.hibernate.jdbc.lob.non_contextual_creation: true
+#        database-platform: org.hibernate.dialect.PostgreSQLDialect
