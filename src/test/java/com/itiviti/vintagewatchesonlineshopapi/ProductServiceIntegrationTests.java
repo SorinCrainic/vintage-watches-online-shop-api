@@ -4,6 +4,7 @@ import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
 import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,7 @@ import org.springframework.transaction.TransactionSystemException;
 
 import javax.validation.ConstraintViolationException;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 
@@ -76,5 +76,30 @@ public class ProductServiceIntegrationTests {
     @Test (expected = ProductNotFoundException.class)
     public void testGetProduct_whenNonValidRequest_thenThrowException() throws ProductNotFoundException {
         productServiceTest.getProduct(1250L);
+    }
+
+    //3.1 Test for method updateProduct: positive test (valid request)
+    @Test
+    public void testUpdateProduct_whenValidRequest_thenReturnUpdatedProduct() throws ProductNotFoundException {
+        Product createdProductTestUpdate = createProductTest();
+        UpdateProductRequest requestUpdateProduct = new UpdateProductRequest();
+
+        requestUpdateProduct.setName(createdProductTestUpdate.getName() + " updated");
+        requestUpdateProduct.setPrice(createdProductTestUpdate.getPrice() + 10);
+        requestUpdateProduct.setQuantity(createdProductTestUpdate.getQuantity() + 1);
+
+        Product updatedProduct = productServiceTest.updateProduct(createdProductTestUpdate.getId(), requestUpdateProduct);
+
+        assertThat(updatedProduct, notNullValue());
+        assertThat(updatedProduct.getId(), is(createdProductTestUpdate.getId()));
+
+        assertThat(updatedProduct.getName(), not(is(createdProductTestUpdate.getName())));
+        assertThat(updatedProduct.getName(), is(createdProductTestUpdate.getName()));
+
+        assertThat(updatedProduct.getPrice(), not(is(createdProductTestUpdate.getPrice())));
+        assertThat(updatedProduct.getPrice(), is(createdProductTestUpdate.getPrice()));
+
+        assertThat(updatedProduct.getQuantity(), not(is(createdProductTestUpdate.getQuantity())));
+        assertThat(updatedProduct.getQuantity(), is(requestUpdateProduct.getQuantity()));
     }
 }
