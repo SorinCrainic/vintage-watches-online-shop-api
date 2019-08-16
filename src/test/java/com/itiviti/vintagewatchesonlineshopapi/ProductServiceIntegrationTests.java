@@ -94,10 +94,10 @@ public class ProductServiceIntegrationTests {
         assertThat(updatedProduct.getId(), is(createdProductTestUpdate.getId()));
 
         assertThat(updatedProduct.getName(), not(is(createdProductTestUpdate.getName())));
-        assertThat(updatedProduct.getName(), is(createdProductTestUpdate.getName()));
+        assertThat(updatedProduct.getName(), is(requestUpdateProduct.getName()));
 
         assertThat(updatedProduct.getPrice(), not(is(createdProductTestUpdate.getPrice())));
-        assertThat(updatedProduct.getPrice(), is(createdProductTestUpdate.getPrice()));
+        assertThat(updatedProduct.getPrice(), is(requestUpdateProduct.getPrice()));
 
         assertThat(updatedProduct.getQuantity(), not(is(createdProductTestUpdate.getQuantity())));
         assertThat(updatedProduct.getQuantity(), is(requestUpdateProduct.getQuantity()));

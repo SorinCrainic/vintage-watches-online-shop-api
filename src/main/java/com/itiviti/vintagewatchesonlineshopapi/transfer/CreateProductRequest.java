@@ -13,7 +13,6 @@ public class CreateProductRequest {
     @NotNull
     private double price;
     private String imagePath;
-    @NotNull
     private String productDescription;
     @NotNull
     @Min(0)
@@ -32,7 +31,7 @@ public class CreateProductRequest {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
