@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 public class CreateProductRequest {
 
     @NotNull
-    public String name;
+    private String name;
     @Min(0)
     private Integer quantity;
     @NotNull
