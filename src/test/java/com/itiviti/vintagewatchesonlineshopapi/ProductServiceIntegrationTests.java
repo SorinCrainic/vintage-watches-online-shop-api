@@ -1,22 +1,22 @@
 package com.itiviti.vintagewatchesonlineshopapi;
 
-import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
-import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
-import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
-import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
-import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.TransactionSystemException;
+        import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
+        import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
+        import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
+        import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
+        import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
+        import org.junit.Test;
+        import org.junit.runner.RunWith;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.boot.test.context.SpringBootTest;
+        import org.springframework.test.context.junit4.SpringRunner;
+        import org.springframework.transaction.TransactionSystemException;
 
-import javax.validation.ConstraintViolationException;
+        import javax.validation.ConstraintViolationException;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+        import static org.hamcrest.CoreMatchers.*;
+        import static org.hamcrest.MatcherAssert.assertThat;
+        import static org.hamcrest.Matchers.greaterThan;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -55,7 +55,7 @@ public class ProductServiceIntegrationTests {
         return createdProductTest;
     }
 
-    //1.2 Test for method createProduct: negative test (not valid request -> missing mandatory parameter, for example)
+    //1.2 Test for method createProduct: negative test (not valid request -> missing mandatory parameter (Id in this case), for example)
     @Test(expected = TransactionSystemException.class)
     public void testCreateProduct_whenNotValidRequest_thenThrowException() {
 
@@ -73,7 +73,7 @@ public class ProductServiceIntegrationTests {
     }
 
     //2.2 Test for method getProduct: negative test (not valid request)
-    @Test (expected = ProductNotFoundException.class)
+    @Test(expected = ProductNotFoundException.class)
     public void testGetProduct_whenNonValidRequest_thenThrowException() throws ProductNotFoundException {
         productServiceTest.getProduct(1250L);
     }
@@ -101,5 +101,33 @@ public class ProductServiceIntegrationTests {
 
         assertThat(updatedProduct.getQuantity(), not(is(createdProductTestUpdate.getQuantity())));
         assertThat(updatedProduct.getQuantity(), is(requestUpdateProduct.getQuantity()));
+    }
+
+    //3.2 Test for method updateProduct: negative test (not valid request)
+    @Test(expected = AssertionError.class)
+    public void testUpdateProduct_whenNotValidRequest_thenThrowException() throws ProductNotFoundException {
+        Product createdProduct_UpdateProductNegativeTest = createProductTest();
+        UpdateProductRequest request_UpdateProductNegativeTest = new UpdateProductRequest();
+
+        request_UpdateProductNegativeTest.setName(createdProduct_UpdateProductNegativeTest.getName() + " updated - for negative test");
+        request_UpdateProductNegativeTest.setPrice(createdProduct_UpdateProductNegativeTest.getPrice() + 100);
+        request_UpdateProductNegativeTest.setQuantity(createdProduct_UpdateProductNegativeTest.getQuantity() + 5);
+
+        Product updatedProduct_UpdateProductNegativeTest = productServiceTest.updateProduct(createdProduct_UpdateProductNegativeTest.getId(), request_UpdateProductNegativeTest);
+
+        assertThat(updatedProduct_UpdateProductNegativeTest, notNullValue());
+        assertThat(updatedProduct_UpdateProductNegativeTest.getId(), is(createdProduct_UpdateProductNegativeTest.getId()));
+
+        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), notNullValue());
+        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), not(is(createdProduct_UpdateProductNegativeTest.getName())));
+        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), not(is(request_UpdateProductNegativeTest.getName())));
+
+        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), notNullValue());
+        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), not(is(createdProduct_UpdateProductNegativeTest.getPrice())));
+        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), not(is(request_UpdateProductNegativeTest.getPrice())));
+
+        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), notNullValue());
+        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), not(is(createdProduct_UpdateProductNegativeTest.getQuantity())));
+        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), not(is(request_UpdateProductNegativeTest.getQuantity())));
     }
 }
