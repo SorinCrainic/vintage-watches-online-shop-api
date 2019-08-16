@@ -1,15 +1,18 @@
 package com.itiviti.vintagewatchesonlineshopapi.service;
 
-        import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
-        import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
-        import com.itiviti.vintagewatchesonlineshopapi.repository.ProductRepository;
-        import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
-        import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
-        import org.slf4j.Logger;
-        import org.slf4j.LoggerFactory;
-        import org.springframework.beans.BeanUtils;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
+import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
+import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
+import com.itiviti.vintagewatchesonlineshopapi.repository.ProductRepository;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.FindProductRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
@@ -64,5 +67,21 @@ public class ProductService {
         LOGGER.info("Delete-ing product {}", id);
         productRepository.deleteById(id);
         LOGGER.info("Deleted product {}", id);
+    }
+
+    //Queries
+    public Page<Product> findProducts(FindProductRequest request, Pageable pageable) {
+        LOGGER.info("Retrieving searched product {}.", request);
+
+        if (request.getPartialName() != null && request.getMinQuantity() != null) {
+            return productRepository.findByNameContainingAndQuantityGreaterThanEqual(request.getPartialName(), request.getMinQuantity(), pageable);
+        }
+
+        else if (request.getPartialName() != null) {
+            return productRepository.findByNameContaining(request.getPartialName(), pageable);
+        }
+
+        //if no search criteria mentioned, will be displayed all products paginated
+           return productRepository.findAll(pageable);
     }
 }
