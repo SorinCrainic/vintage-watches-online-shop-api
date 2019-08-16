@@ -1,22 +1,20 @@
 package com.itiviti.vintagewatchesonlineshopapi;
 
-        import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
-        import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
-        import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
-        import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
-        import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
-        import org.junit.Test;
-        import org.junit.runner.RunWith;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.boot.test.context.SpringBootTest;
-        import org.springframework.test.context.junit4.SpringRunner;
-        import org.springframework.transaction.TransactionSystemException;
+import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
+import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
+import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.TransactionSystemException;
 
-        import javax.validation.ConstraintViolationException;
-
-        import static org.hamcrest.CoreMatchers.*;
-        import static org.hamcrest.MatcherAssert.assertThat;
-        import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,11 +34,11 @@ public class ProductServiceIntegrationTests {
 
     private Product createProductTest() {
         CreateProductRequest requestPositiveTest = new CreateProductRequest();
-        requestPositiveTest.setName("Ruhla");
-        requestPositiveTest.setPrice(399.00);
+        requestPositiveTest.setName("Seiko Lord Matic");
+        requestPositiveTest.setPrice(1000.00);
         requestPositiveTest.setQuantity(1);
-        requestPositiveTest.setProductRate(8);
-        requestPositiveTest.setProductDescription("Mechanical chronograph (tachymeter).");
+        requestPositiveTest.setProductRate(10.00);
+        requestPositiveTest.setProductDescription("Vintage automatic watch, mint condition, collectible.");
 
         Product createdProductTest = productServiceTest.createProduct(requestPositiveTest);
 

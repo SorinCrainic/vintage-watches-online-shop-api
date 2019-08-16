@@ -19,7 +19,7 @@ public class Product {
     @Min(0)
     private Integer quantity;
     @NotNull
-    private double price;
+    private Double price;
     private String imagePath;
     private String productDescription;
     @NotNull
@@ -51,11 +51,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
