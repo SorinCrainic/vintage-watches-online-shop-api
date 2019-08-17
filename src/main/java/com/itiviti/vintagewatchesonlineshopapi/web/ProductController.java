@@ -5,6 +5,7 @@ import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundExcepti
 import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.FindProductRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.UpdateProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,18 +26,25 @@ public class ProductController {
         this.productService = productService;
     }
 
-    //endpoint: GET (retrieve) existing products
+    //endpoint: POST (add/create) new product
+    @PostMapping
+    public ResponseEntity<Product> createProductProductController(@RequestBody @Valid CreateProductRequest requestCreateProductController) {
+        Product createdProductProductController = productService.createProduct(requestCreateProductController);
+        return new ResponseEntity<>(createdProductProductController, HttpStatus.CREATED);
+    }
+
+    //endpoint: GET (read/retrieve) existing product
     @GetMapping
     public ResponseEntity<Page<Product>> findProducts(FindProductRequest requestGetProductController, Pageable pageable) {
         Page<Product> responseProductController = productService.findProducts(requestGetProductController, pageable);
         return new ResponseEntity<>(responseProductController, HttpStatus.OK);
     }
 
-    //endpoint: CREATE (add, POST) new product
-    @PostMapping
-    public ResponseEntity<Product> createProductProductController(@RequestBody @Valid CreateProductRequest requestCreateProductController) {
-        Product createdProductProductController = productService.createProduct(requestCreateProductController);
-        return new ResponseEntity<>(createdProductProductController, HttpStatus.CREATED);
+    //endpoint: GET (read/select) existing product
+    @GetMapping("/{toSelectProductId}")
+    public ResponseEntity getProductProductController(@PathVariable("toSelectProductId") Long id) throws ProductNotFoundException {
+        Product selectedProduct = productService.getProduct(id);
+        return new ResponseEntity<>(selectedProduct, HttpStatus.OK);
     }
 
     //endpoint: DELETE existing product
@@ -46,10 +54,10 @@ public class ProductController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    //endpoint: GET (select) existing product
-    @GetMapping("/{toSelectProductId}")
-    public ResponseEntity getProductProductController(@PathVariable("toSelectProductId") Long id) throws ProductNotFoundException {
-        Product selectedProduct = productService.getProduct(id);
-        return new ResponseEntity<>(selectedProduct, HttpStatus.OK);
+    //endpoint: PUT (update) existing product
+    @PutMapping("/{toUpdateProductId}")
+    public ResponseEntity updateProductProductController(@PathVariable("toUpdateProductId") Long id,@RequestBody @Valid  UpdateProductRequest requestUpdateProductController) throws ProductNotFoundException {
+        productService.updateProduct(id, requestUpdateProductController);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
