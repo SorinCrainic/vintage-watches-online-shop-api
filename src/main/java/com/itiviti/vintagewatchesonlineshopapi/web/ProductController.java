@@ -1,6 +1,7 @@
 package com.itiviti.vintagewatchesonlineshopapi.web;
 
 import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
+import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.FindProductRequest;
@@ -24,17 +25,31 @@ public class ProductController {
         this.productService = productService;
     }
 
-    //endpoint: GET (retrieve existing products)
+    //endpoint: GET (retrieve) existing products
     @GetMapping
-    public ResponseEntity<Page<Product>> findProducts(FindProductRequest requestGetProductController, Pageable pageable){
+    public ResponseEntity<Page<Product>> findProducts(FindProductRequest requestGetProductController, Pageable pageable) {
         Page<Product> responseProductController = productService.findProducts(requestGetProductController, pageable);
         return new ResponseEntity<>(responseProductController, HttpStatus.OK);
     }
 
-    //endpoint: create new product
+    //endpoint: CREATE (add, POST) new product
     @PostMapping
-    public ResponseEntity<Product> createProductProductController (@RequestBody @Valid CreateProductRequest requestCreateProductController){
+    public ResponseEntity<Product> createProductProductController(@RequestBody @Valid CreateProductRequest requestCreateProductController) {
         Product createdProductProductController = productService.createProduct(requestCreateProductController);
         return new ResponseEntity<>(createdProductProductController, HttpStatus.CREATED);
+    }
+
+    //endpoint: DELETE existing product
+    @DeleteMapping("/{toDeleteProductId}")
+    public ResponseEntity deleteProductProductController(@PathVariable("toDeleteProductId") Long id) {
+        productService.deleteProduct(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    //endpoint: GET (select) existing product
+    @GetMapping("/{toSelectProductId}")
+    public ResponseEntity getProductProductController(@PathVariable("toSelectProductId") Long id) throws ProductNotFoundException {
+        Product selectedProduct = productService.getProduct(id);
+        return new ResponseEntity<>(selectedProduct, HttpStatus.OK);
     }
 }
