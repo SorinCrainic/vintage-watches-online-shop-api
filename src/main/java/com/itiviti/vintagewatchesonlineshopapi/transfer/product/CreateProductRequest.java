@@ -1,13 +1,13 @@
-package com.itiviti.vintagewatchesonlineshopapi.transfer;
+package com.itiviti.vintagewatchesonlineshopapi.transfer.product;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class UpdateProductRequest {
+public class CreateProductRequest {
 
     @NotNull
-    public String name;
+    private String name;
     @Min(0)
     private Integer quantity;
     @NotNull

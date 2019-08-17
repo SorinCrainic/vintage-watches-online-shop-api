@@ -1,4 +1,4 @@
-package com.itiviti.vintagewatchesonlineshopapi.transfer;
+package com.itiviti.vintagewatchesonlineshopapi.transfer.product;
 
 public class FindProductRequest {
 
