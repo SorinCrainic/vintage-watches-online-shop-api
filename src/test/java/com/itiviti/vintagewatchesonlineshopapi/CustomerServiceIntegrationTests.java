@@ -11,10 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class CustomerServiceIntegrationTests {
 
-//    //add CustomerService dependency (dependency injection)
-//    @Autowired
-//    private CustomerService customerServiceTest;
-
     @Autowired
     private CustomerSteps customerStepsTest;
 
