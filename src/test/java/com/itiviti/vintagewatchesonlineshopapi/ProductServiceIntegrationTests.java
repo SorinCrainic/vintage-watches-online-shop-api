@@ -3,6 +3,7 @@ package com.itiviti.vintagewatchesonlineshopapi;
 import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
 import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
+import com.itiviti.vintagewatchesonlineshopapi.steps.ProductSteps;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.UpdateProductRequest;
 import org.junit.Test;
@@ -14,43 +15,22 @@ import org.springframework.transaction.TransactionSystemException;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductServiceIntegrationTests {
 
     //add ProductService dependency
-
     @Autowired
     private ProductService productServiceTest;
+
+    @Autowired
+    private ProductSteps productStepsTest;
 
     //1.1 Test for method createProduct: positive test (valid request)
     @Test
     public void testCreateProduct_whenValidRequest_thenReturnCreatedProduct() {
-
-        createProductTest();
-    }
-
-    private Product createProductTest() {
-        CreateProductRequest requestPositiveTest = new CreateProductRequest();
-        requestPositiveTest.setName("Seiko Lord Matic");
-        requestPositiveTest.setPrice(1000.00);
-        requestPositiveTest.setQuantity(1);
-        requestPositiveTest.setProductRate(10.00);
-        requestPositiveTest.setProductDescription("Vintage automatic watch, mint condition, collectible.");
-
-        Product createdProductTest = productServiceTest.createProduct(requestPositiveTest);
-
-        assertThat(createdProductTest, notNullValue());
-        assertThat(createdProductTest.getId(), greaterThan(0L));
-        assertThat(createdProductTest.getName(), is(requestPositiveTest.getName()));
-        assertThat(createdProductTest.getPrice(), is(requestPositiveTest.getPrice()));
-        assertThat(createdProductTest.getQuantity(), is(requestPositiveTest.getQuantity()));
-        assertThat(createdProductTest.getProductRate(), is(requestPositiveTest.getProductRate()));
-        assertThat(createdProductTest.getProductDescription(), is(requestPositiveTest.getProductDescription()));
-
-        return createdProductTest;
+        productStepsTest.createProductTest();
     }
 
     //1.2 Test for method createProduct: negative test (not valid request -> missing mandatory parameter (Id in this case), for example)
@@ -64,7 +44,7 @@ public class ProductServiceIntegrationTests {
     //2.1 Test for method getProduct: positive test (valid request)
     @Test
     public void testGetProduct_whenValidRequest_thenReturnRetrievedProduct() throws NotFoundException {
-        Product createdProductTest = createProductTest();
+        Product createdProductTest = productStepsTest.createProductTest();
         Product retrievedProduct = productServiceTest.getProduct(createdProductTest.getId());
         assertThat(retrievedProduct, notNullValue());
         assertThat(retrievedProduct.getId(), is(createdProductTest.getId()));
@@ -79,7 +59,7 @@ public class ProductServiceIntegrationTests {
     //3.1 Test for method updateProduct: positive test (valid request)
     @Test
     public void testUpdateProduct_whenValidRequest_thenReturnUpdatedProduct() throws NotFoundException {
-        Product createdProductTestUpdate = createProductTest();
+        Product createdProductTestUpdate = productStepsTest.createProductTest();
         UpdateProductRequest requestUpdateProduct = new UpdateProductRequest();
 
         requestUpdateProduct.setName(createdProductTestUpdate.getName() + " updated");
@@ -104,7 +84,7 @@ public class ProductServiceIntegrationTests {
     //3.2 Test for method updateProduct: negative test (not valid request)
     @Test(expected = AssertionError.class)
     public void testUpdateProduct_whenNotValidRequest_thenThrowException() throws NotFoundException {
-        Product createdProduct_UpdateProductNegativeTest = createProductTest();
+        Product createdProduct_UpdateProductNegativeTest = productStepsTest.createProductTest();
         UpdateProductRequest request_UpdateProductNegativeTest = new UpdateProductRequest();
 
         request_UpdateProductNegativeTest.setName(createdProduct_UpdateProductNegativeTest.getName() + " updated - for negative test");

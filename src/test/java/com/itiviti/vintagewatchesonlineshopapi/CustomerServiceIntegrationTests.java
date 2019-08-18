@@ -1,6 +1,5 @@
 package com.itiviti.vintagewatchesonlineshopapi;
 
-import com.itiviti.vintagewatchesonlineshopapi.service.CustomerService;
 import com.itiviti.vintagewatchesonlineshopapi.steps.CustomerSteps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class CustomerServiceIntegrationTests {
 
-    //add CustomerService dependency (dependency injection)
-    @Autowired
-    private CustomerService customerServiceTest;
+//    //add CustomerService dependency (dependency injection)
+//    @Autowired
+//    private CustomerService customerServiceTest;
 
     @Autowired
     private CustomerSteps customerStepsTest;
