@@ -1,6 +1,7 @@
 package com.itiviti.vintagewatchesonlineshopapi.service;
 
 import com.itiviti.vintagewatchesonlineshopapi.domain.Customer;
+import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
 import com.itiviti.vintagewatchesonlineshopapi.domain.ShoppingCart;
 import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.repository.ShoppingCartRepository;
@@ -20,10 +21,12 @@ public class ShoppingCartService {
     @Autowired
     private final ShoppingCartRepository shoppingCartRepository;
     private final CustomerService customerService;
+    private final ProductService productService;
 
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CustomerService customerService) {
+    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CustomerService customerService, ProductService productService) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.customerService = customerService;
+        this.productService = productService;
     }
 
     //Method for ADDING a Product to a ShoppingCart
@@ -36,6 +39,10 @@ public class ShoppingCartService {
 
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart);
+
+        Product productToBeAddedToTheShoppingCart = productService.getProduct(requestAddProductToShoppingCart.getProdcutId());
+
+        shoppingCart.addProductToCurrentShoppingCart(productToBeAddedToTheShoppingCart);
 
         shoppingCartRepository.save(shoppingCart);
     }

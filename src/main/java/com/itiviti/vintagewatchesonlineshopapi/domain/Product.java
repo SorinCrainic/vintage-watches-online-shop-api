@@ -3,9 +3,12 @@ package com.itiviti.vintagewatchesonlineshopapi.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -26,6 +29,17 @@ public class Product {
     @Min(0)
     @Max(10)
     private double productRate;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<ShoppingCart> shoppingCart = new HashSet<>();
+
+    public Set<ShoppingCart> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(Set<ShoppingCart> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 
     public long getId() {
         return id;

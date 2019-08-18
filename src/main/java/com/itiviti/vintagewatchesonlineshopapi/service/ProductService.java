@@ -63,7 +63,7 @@ public class ProductService {
 
     //Method for DELETE-ing a product (cruD)
     public void deleteProduct(long id) {
-        LOGGER.info("Delete-ing product {}", id);
+        LOGGER.info("Deleting product {}", id);
         productRepository.deleteById(id);
         LOGGER.info("Deleted product {}", id);
     }
