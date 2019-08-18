@@ -31,7 +31,7 @@ public class ShoppingCartService {
 
     //Method for ADDING a Product to a ShoppingCart
     @Transactional
-    public void addProductToShoppindCart(AddProductToShoppingCartRequest requestAddProductToShoppingCart) throws NotFoundException {
+    public void addProductToShoppingCart(AddProductToShoppingCartRequest requestAddProductToShoppingCart) throws NotFoundException {
         LOGGER.info("Adding product " + requestAddProductToShoppingCart + " to shopping cart.");
 
         //retrieve from db the existing customer which will be assigned to the shopping cart (the customer must already be created/exist into db)

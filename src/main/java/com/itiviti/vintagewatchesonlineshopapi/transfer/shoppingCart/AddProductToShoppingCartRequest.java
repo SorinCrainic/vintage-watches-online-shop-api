@@ -5,7 +5,7 @@ public class AddProductToShoppingCartRequest {
 
     private Long customerId;
 
-    private Long prodcutId;
+    private Long productId;
 
     public Long getCustomerId() {
         return customerId;
@@ -16,18 +16,18 @@ public class AddProductToShoppingCartRequest {
     }
 
     public Long getProdcutId() {
-        return prodcutId;
+        return productId;
     }
 
     public void setProdcutId(Long prodcutId) {
-        this.prodcutId = prodcutId;
+        this.productId = prodcutId;
     }
 
     @Override
     public String toString() {
         return "AddProductToShoppingCartRequest{" +
                 "customerId=" + customerId +
-                ", prodcutId=" + prodcutId +
+                ", prodcutId=" + productId +
                 '}';
     }
 }
