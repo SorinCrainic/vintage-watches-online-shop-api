@@ -20,7 +20,6 @@ public class ProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
 
     //IoC (Inversion on Control) and DI (Dependency Injection)
-//    @Autowired
     private final ProductRepository productRepository;
 
     @Autowired
