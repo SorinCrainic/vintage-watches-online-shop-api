@@ -1,7 +1,7 @@
 package com.itiviti.vintagewatchesonlineshopapi.web;
 
 import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
-import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
+import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.FindProductRequest;
@@ -43,7 +43,7 @@ public class ProductController {
 
     //endpoint: GET (read/select) existing product
     @GetMapping("/{toSelectProductId}")
-    public ResponseEntity getProductProductController(@PathVariable("toSelectProductId") Long id) throws ProductNotFoundException {
+    public ResponseEntity getProductProductController(@PathVariable("toSelectProductId") Long id) throws NotFoundException {
         Product selectedProduct = productService.getProduct(id);
         return new ResponseEntity<>(selectedProduct, HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class ProductController {
 
     //endpoint: PUT (update) existing product
     @PutMapping("/{toUpdateProductId}")
-    public ResponseEntity updateProductProductController(@PathVariable("toUpdateProductId") Long id,@RequestBody @Valid  UpdateProductRequest requestUpdateProductController) throws ProductNotFoundException {
+    public ResponseEntity updateProductProductController(@PathVariable("toUpdateProductId") Long id,@RequestBody @Valid  UpdateProductRequest requestUpdateProductController) throws NotFoundException {
         productService.updateProduct(id, requestUpdateProductController);
         return new ResponseEntity(HttpStatus.OK);
     }

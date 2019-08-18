@@ -1,7 +1,7 @@
 package com.itiviti.vintagewatchesonlineshopapi.service;
 
 import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
-import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
+import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.repository.ProductRepository;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.FindProductRequest;
@@ -46,14 +46,14 @@ public class ProductService {
     }
 
     //Method for RETRIEVING a product from db by productId (cRud)
-    public Product getProduct(long id) throws ProductNotFoundException {
+    public Product getProduct(long id) throws NotFoundException {
         LOGGER.info("Retrieving product {}", id);
-        //using Optional wit orElseThrow; using Lambda expressions (anonymous methods)
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product " + id + " not exist."));
+        //using Optional with orElseThrow; using Lambda expressions (anonymous methods)
+        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product " + id + " not exist."));
     }
 
     //Method for UPDATE-ing a product (crUd)
-    public Product updateProduct(long id, UpdateProductRequest requestForUpdate) throws ProductNotFoundException {
+    public Product updateProduct(long id, UpdateProductRequest requestForUpdate) throws NotFoundException {
         LOGGER.info("Update-ing product {} with {}", id, requestForUpdate);
         Product productToBeUpdated = getProduct(id);
 

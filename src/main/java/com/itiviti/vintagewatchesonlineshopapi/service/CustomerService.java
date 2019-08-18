@@ -2,6 +2,7 @@ package com.itiviti.vintagewatchesonlineshopapi.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itiviti.vintagewatchesonlineshopapi.domain.Customer;
+import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.repository.CustomerRepository;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.customer.CreateCustomerRequest;
 import org.slf4j.Logger;
@@ -38,5 +39,11 @@ public class CustomerService {
         Customer newCreatedCustomer = objectMapper.convertValue(requestCreateCustomer, Customer.class);
 
         return customerRepository.save(newCreatedCustomer);
+    }
+
+    //Method for RETRIEVING a customer from db by productId (cRud)
+    public Customer getCustomer(long id) throws NotFoundException {
+        LOGGER.info("Retrieving customer {}", id);
+        return customerRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer" + id + "not exist."));
     }
 }

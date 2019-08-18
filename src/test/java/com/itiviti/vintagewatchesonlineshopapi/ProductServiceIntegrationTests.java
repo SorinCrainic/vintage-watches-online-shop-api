@@ -1,7 +1,7 @@
 package com.itiviti.vintagewatchesonlineshopapi;
 
 import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
-import com.itiviti.vintagewatchesonlineshopapi.exceptions.ProductNotFoundException;
+import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.UpdateProductRequest;
@@ -63,7 +63,7 @@ public class ProductServiceIntegrationTests {
 
     //2.1 Test for method getProduct: positive test (valid request)
     @Test
-    public void testGetProduct_whenValidRequest_thenReturnRetrievedProduct() throws ProductNotFoundException {
+    public void testGetProduct_whenValidRequest_thenReturnRetrievedProduct() throws NotFoundException {
         Product createdProductTest = createProductTest();
         Product retrievedProduct = productServiceTest.getProduct(createdProductTest.getId());
         assertThat(retrievedProduct, notNullValue());
@@ -71,14 +71,14 @@ public class ProductServiceIntegrationTests {
     }
 
     //2.2 Test for method getProduct: negative test (not valid request)
-    @Test(expected = ProductNotFoundException.class)
-    public void testGetProduct_whenNonValidRequest_thenThrowException() throws ProductNotFoundException {
+    @Test(expected = NotFoundException.class)
+    public void testGetProduct_whenNonValidRequest_thenThrowException() throws NotFoundException {
         productServiceTest.getProduct(1250L);
     }
 
     //3.1 Test for method updateProduct: positive test (valid request)
     @Test
-    public void testUpdateProduct_whenValidRequest_thenReturnUpdatedProduct() throws ProductNotFoundException {
+    public void testUpdateProduct_whenValidRequest_thenReturnUpdatedProduct() throws NotFoundException {
         Product createdProductTestUpdate = createProductTest();
         UpdateProductRequest requestUpdateProduct = new UpdateProductRequest();
 
@@ -103,7 +103,7 @@ public class ProductServiceIntegrationTests {
 
     //3.2 Test for method updateProduct: negative test (not valid request)
     @Test(expected = AssertionError.class)
-    public void testUpdateProduct_whenNotValidRequest_thenThrowException() throws ProductNotFoundException {
+    public void testUpdateProduct_whenNotValidRequest_thenThrowException() throws NotFoundException {
         Product createdProduct_UpdateProductNegativeTest = createProductTest();
         UpdateProductRequest request_UpdateProductNegativeTest = new UpdateProductRequest();
 
