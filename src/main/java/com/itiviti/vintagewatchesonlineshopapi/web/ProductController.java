@@ -5,6 +5,7 @@ import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.service.ProductService;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.FindProductRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.product.ProductDTO;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.UpdateProductRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,8 +37,8 @@ public class ProductController {
 
     //endpoint: GET (read/retrieve) existing product
     @GetMapping
-    public ResponseEntity<Page<Product>> findProducts(FindProductRequest requestGetProductController, Pageable pageable) {
-        Page<Product> responseProductController = productService.findProducts(requestGetProductController, pageable);
+    public ResponseEntity<Page<ProductDTO>> findProducts(FindProductRequest requestGetProductController, Pageable pageable) {
+        Page<ProductDTO> responseProductController = productService.findProducts(requestGetProductController, pageable);
         return new ResponseEntity<>(responseProductController, HttpStatus.OK);
     }
 

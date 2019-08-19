@@ -5,14 +5,19 @@ import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.repository.ProductRepository;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.CreateProductRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.FindProductRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.product.ProductDTO;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.product.UpdateProductRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -69,18 +74,34 @@ public class ProductService {
     }
 
     //Queries
-    public Page<Product> findProducts(FindProductRequest request, Pageable pageable) {
+    public Page<ProductDTO> findProducts(FindProductRequest request, Pageable pageable) {
         LOGGER.info("Retrieving searched product {}.", request);
 
+        Page<Product> productsRestoredFromDb;
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
         if (request.getPartialName() != null && request.getMinQuantity() != null) {
-            return productRepository.findByNameContainingAndQuantityGreaterThanEqual(request.getPartialName(), request.getMinQuantity(), pageable);
+            productsRestoredFromDb = productRepository.findByNameContainingAndQuantityGreaterThanEqual(request.getPartialName(), request.getMinQuantity(), pageable);
+        } else if (request.getPartialName() != null) {
+            productsRestoredFromDb = productRepository.findByNameContaining(request.getPartialName(), pageable);
+        } else {
+            //if no search criteria mentioned, will be displayed all products paginated
+            productsRestoredFromDb = productRepository.findAll(pageable);
         }
 
-        else if (request.getPartialName() != null) {
-            return productRepository.findByNameContaining(request.getPartialName(), pageable);
-        }
+        productsRestoredFromDb.getContent().forEach(product -> {
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(product.getId());
+            productDTO.setName(product.getName());
+            productDTO.setPrice(product.getPrice());
+            productDTO.setQuantity(product.getQuantity());
+            productDTO.setProductRate(product.getProductRate());
+            productDTO.setProductDescription(product.getProductDescription());
+            productDTO.setImagePath(product.getImagePath());
 
-        //if no search criteria mentioned, will be displayed all products paginated
-           return productRepository.findAll(pageable);
+            productDTOS.add(productDTO);
+        });
+
+        return new PageImpl<>(productDTOS, pageable, productsRestoredFromDb.getTotalElements());
     }
 }
