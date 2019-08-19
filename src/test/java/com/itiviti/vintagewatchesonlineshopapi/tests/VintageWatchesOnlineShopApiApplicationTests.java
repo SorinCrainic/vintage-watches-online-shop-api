@@ -12,5 +12,4 @@ public class VintageWatchesOnlineShopApiApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

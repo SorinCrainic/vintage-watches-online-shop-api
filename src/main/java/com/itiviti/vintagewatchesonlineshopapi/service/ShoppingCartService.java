@@ -43,7 +43,7 @@ public class ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart);
 
-        Product productToBeAddedToTheShoppingCart = productService.getProduct(requestAddProductToShoppingCart.getProdcutId());
+        Product productToBeAddedToTheShoppingCart = productService.getProduct(requestAddProductToShoppingCart.getProductId());
 
         shoppingCart.addProductToCurrentShoppingCart(productToBeAddedToTheShoppingCart);
 

@@ -41,7 +41,7 @@ public class ShoppingCartServiceIntegrationTests {
 
         AddProductToShoppingCartRequest requestAddShoppingCartTest = new AddProductToShoppingCartRequest();
         requestAddShoppingCartTest.setCustomerId(customerShoppingCartTest.getId());
-        requestAddShoppingCartTest.setProdcutId(productShoppingCartTest.getId());
+        requestAddShoppingCartTest.setProductId(productShoppingCartTest.getId());
 
         shoppingCartServiceTest.addProductToShoppingCart(requestAddShoppingCartTest);
 

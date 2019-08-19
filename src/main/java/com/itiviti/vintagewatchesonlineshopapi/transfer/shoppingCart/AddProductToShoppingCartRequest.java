@@ -19,11 +19,11 @@ public class AddProductToShoppingCartRequest {
         this.customerId = customerId;
     }
 
-    public Long getProdcutId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProdcutId(Long prodcutId) {
+    public void setProductId(Long prodcutId) {
         this.productId = prodcutId;
     }
 
