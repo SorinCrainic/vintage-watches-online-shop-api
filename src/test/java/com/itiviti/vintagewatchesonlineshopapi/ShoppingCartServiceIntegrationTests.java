@@ -6,6 +6,7 @@ import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.service.ShoppingCartService;
 import com.itiviti.vintagewatchesonlineshopapi.steps.CustomerSteps;
 import com.itiviti.vintagewatchesonlineshopapi.steps.ProductSteps;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.product.ProductDTO;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.shoppingCart.AddProductToShoppingCartRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.shoppingCart.ShoppingCartDTO;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,14 +54,17 @@ public class ShoppingCartServiceIntegrationTests {
         assertThat(productRetrievedFromShoppingCartTest.getCustomer().getCustomerLastName(), is(customerShoppingCartTest.getCustomerLastName()));
         assertThat(productRetrievedFromShoppingCartTest.getCustomer().getCustomerAddress(), is(customerShoppingCartTest.getCustomerAddress()));
 
-//        assertThat(productRetrievedFromShoppingCartTest.getProducts(), notNullValue());
-//        assertThat(productRetrievedFromShoppingCartTest.getProducts(), hasSize(1));
-//
-//        Product firstProductFromShoppingChart = productRetrievedFromShoppingCartTest.getProducts().iterator().next();
-//
-//        assertThat(firstProductFromShoppingChart, notNullValue());
-//        assertThat(firstProductFromShoppingChart.getName(), is(productShoppingCartTest.getName()));
+        assertThat(productRetrievedFromShoppingCartTest.getProducts(), notNullValue());
+        assertThat(productRetrievedFromShoppingCartTest.getProducts(), hasSize(1));
 
+        ProductDTO firstProductFromShoppingChart = productRetrievedFromShoppingCartTest.getProducts().iterator().next();
 
+        assertThat(firstProductFromShoppingChart, notNullValue());
+        assertThat(firstProductFromShoppingChart.getName(), is(productShoppingCartTest.getName()));
+        assertThat(firstProductFromShoppingChart.getQuantity(), is(productShoppingCartTest.getQuantity()));
+        assertThat(firstProductFromShoppingChart.getPrice(), is(productShoppingCartTest.getPrice()));
+        assertThat(firstProductFromShoppingChart.getImagePath(), is(productShoppingCartTest.getImagePath()));
+        assertThat(firstProductFromShoppingChart.getProductDescription(), is(productShoppingCartTest.getProductDescription()));
+        assertThat(firstProductFromShoppingChart.getProductRate(), is(productShoppingCartTest.getProductRate()));
     }
 }

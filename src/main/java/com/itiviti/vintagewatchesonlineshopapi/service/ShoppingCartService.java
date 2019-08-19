@@ -6,6 +6,7 @@ import com.itiviti.vintagewatchesonlineshopapi.domain.ShoppingCart;
 import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.repository.ShoppingCartRepository;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.customer.CustomerDTO;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.product.ProductDTO;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.shoppingCart.AddProductToShoppingCartRequest;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.shoppingCart.ShoppingCartDTO;
 import org.slf4j.Logger;
@@ -63,7 +64,21 @@ public class ShoppingCartService {
         customerDTO.setCustomerAddress(shoppingCart.getCustomerShoppingCart().getCustomerAddress());
 
         ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+        shoppingCartDTO.setId(shoppingCart.getId());
         shoppingCartDTO.setCustomer(customerDTO);
+
+        shoppingCart.getProducts().forEach(product -> {
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setId(product.getId());
+            productDTO.setName(product.getName());
+            productDTO.setQuantity(product.getQuantity());
+            productDTO.setPrice(product.getPrice());
+            productDTO.setImagePath(product.getImagePath());
+            productDTO.setProductDescription(product.getProductDescription());
+            productDTO.setProductRate(product.getProductRate());
+
+            shoppingCartDTO.getProducts().add(productDTO);
+        });
 
         return shoppingCartDTO;
     }
