@@ -29,7 +29,7 @@ public class ProductController {
 
     //endpoint: POST (add/create) new product
     @PostMapping
-    public ResponseEntity<Product> createProductProductController(@RequestBody @Valid CreateProductRequest requestCreateProductController) {
+    public ResponseEntity<Product> createProductController(@RequestBody @Valid CreateProductRequest requestCreateProductController) {
         Product createdProductProductController = productService.createProduct(requestCreateProductController);
         return new ResponseEntity<>(createdProductProductController, HttpStatus.CREATED);
     }

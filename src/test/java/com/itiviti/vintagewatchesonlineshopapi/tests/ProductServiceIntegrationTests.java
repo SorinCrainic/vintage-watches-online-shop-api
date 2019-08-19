@@ -1,4 +1,4 @@
-package com.itiviti.vintagewatchesonlineshopapi;
+package com.itiviti.vintagewatchesonlineshopapi.tests;
 
 import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
 import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;

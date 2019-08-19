@@ -1,4 +1,4 @@
-package com.itiviti.vintagewatchesonlineshopapi;
+package com.itiviti.vintagewatchesonlineshopapi.tests;
 
 import com.itiviti.vintagewatchesonlineshopapi.steps.CustomerSteps;
 import org.junit.Test;

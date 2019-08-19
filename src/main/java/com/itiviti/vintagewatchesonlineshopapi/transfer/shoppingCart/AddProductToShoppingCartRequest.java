@@ -1,10 +1,14 @@
 package com.itiviti.vintagewatchesonlineshopapi.transfer.shoppingCart;
 
+import javax.validation.constraints.NotNull;
+
 //DTO: data transfer object
 public class AddProductToShoppingCartRequest {
 
+    @NotNull
     private Long customerId;
 
+    @NotNull
     private Long productId;
 
     public Long getCustomerId() {
