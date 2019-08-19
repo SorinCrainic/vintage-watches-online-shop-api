@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.greaterThan;
 @Component
 public class ProductSteps {
 
-    //add ProductService dependency
+    //add ProductService dependency (Dependency Injection)
     @Autowired
     private ProductService productServiceTest;
 
