@@ -5,7 +5,9 @@ import com.itiviti.vintagewatchesonlineshopapi.domain.Product;
 import com.itiviti.vintagewatchesonlineshopapi.domain.ShoppingCart;
 import com.itiviti.vintagewatchesonlineshopapi.exceptions.NotFoundException;
 import com.itiviti.vintagewatchesonlineshopapi.repository.ShoppingCartRepository;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.customer.CustomerDTO;
 import com.itiviti.vintagewatchesonlineshopapi.transfer.shoppingCart.AddProductToShoppingCartRequest;
+import com.itiviti.vintagewatchesonlineshopapi.transfer.shoppingCart.ShoppingCartDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +47,24 @@ public class ShoppingCartService {
         shoppingCart.addProductToCurrentShoppingCart(productToBeAddedToTheShoppingCart);
 
         shoppingCartRepository.save(shoppingCart);
+    }
+
+    //Method for RETRIEVING (GET) a Product from a ShoppingCart
+    //customerId and cartId are the same (mapping rule implemented while defining OneToOne relationship between customer and shopping cart)
+    @Transactional
+    public ShoppingCartDTO getProductFromShoppingCart(Long customerId) throws NotFoundException {
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(customerId).orElseThrow(() -> new NotFoundException
+                ("Retrieved shopping cart " + customerId + "does not exist."));
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setId(shoppingCart.getCustomerShoppingCart().getId());
+        customerDTO.setCustomerFirstName(shoppingCart.getCustomerShoppingCart().getCustomerFirstName());
+        customerDTO.setCustomerLastName(shoppingCart.getCustomerShoppingCart().getCustomerLastName());
+        customerDTO.setCustomerAddress(shoppingCart.getCustomerShoppingCart().getCustomerAddress());
+
+        ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+        shoppingCartDTO.setCustomer(customerDTO);
+
+        return shoppingCartDTO;
     }
 }
