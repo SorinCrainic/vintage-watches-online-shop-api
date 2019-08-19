@@ -40,7 +40,12 @@ public class ShoppingCartService {
         //retrieve from db the existing customer which will be assigned to the shopping cart (the customer must already be created/exist into db)
         Customer customerAssignedToShoppingCart = customerService.getCustomer(requestAddProductToShoppingCart.getCustomerId());
 
-        ShoppingCart shoppingCart = new ShoppingCart();
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(requestAddProductToShoppingCart.
+                getCustomerId()).orElse(new ShoppingCart());
+        if (shoppingCart.getCustomerShoppingCart() == null) {
+            shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart);
+        }
+
         shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart);
 
         Product productToBeAddedToTheShoppingCart = productService.getProduct(requestAddProductToShoppingCart.getProductId());
