@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @SpringBootTest
 public class ProductServiceIntegrationTests {
 
-    //add ProductService dependency
+    //add ProductService dependency (DI)
     @Autowired
     private ProductService productServiceTest;
 
