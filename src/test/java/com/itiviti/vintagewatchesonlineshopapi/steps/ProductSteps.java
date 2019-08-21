@@ -23,6 +23,7 @@ public class ProductSteps {
         requestPositiveTest.setName("Seiko Lord Matic");
         requestPositiveTest.setPrice(1000.00);
         requestPositiveTest.setQuantity(1);
+        requestPositiveTest.setImagePath("img/art1.jpg");
         requestPositiveTest.setProductRate(10.00);
         requestPositiveTest.setProductDescription("Vintage automatic watch, mint condition, collectible.");
 
@@ -33,6 +34,7 @@ public class ProductSteps {
         assertThat(createdProductTest.getName(), is(requestPositiveTest.getName()));
         assertThat(createdProductTest.getPrice(), is(requestPositiveTest.getPrice()));
         assertThat(createdProductTest.getQuantity(), is(requestPositiveTest.getQuantity()));
+        assertThat(createdProductTest.getImagePath(), is(requestPositiveTest.getImagePath()));
         assertThat(createdProductTest.getProductRate(), is(requestPositiveTest.getProductRate()));
         assertThat(createdProductTest.getProductDescription(), is(requestPositiveTest.getProductDescription()));
 

@@ -65,6 +65,8 @@ public class ProductServiceIntegrationTests {
         requestUpdateProduct.setName(createdProductTestUpdate.getName() + " updated");
         requestUpdateProduct.setPrice(createdProductTestUpdate.getPrice() + 10);
         requestUpdateProduct.setQuantity(createdProductTestUpdate.getQuantity() + 1);
+        requestUpdateProduct.setImagePath(createdProductTestUpdate.getImagePath());
+
 
         Product updatedProduct = productServiceTest.updateProduct(createdProductTestUpdate.getId(), requestUpdateProduct);
 
