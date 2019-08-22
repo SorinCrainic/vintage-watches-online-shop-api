@@ -9,7 +9,6 @@ import java.util.Set;
 public class ShoppingCart {
 
     @Id
-    @NotNull
     private Long id;
 
     //OneToOne (ShoppingCart to Customer; ShoppingCart is the owner of the relationship)
