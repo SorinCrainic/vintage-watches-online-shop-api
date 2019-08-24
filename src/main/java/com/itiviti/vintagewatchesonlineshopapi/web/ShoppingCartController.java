@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/shopping_cart")
 public class ShoppingCartController {
@@ -24,7 +25,7 @@ public class ShoppingCartController {
     }
 
     //an endpoint is a method which exposes a resource on the network
-    //endpoint: POST (add/create) new product to shopping cart
+    //endpoint: PUT (add/create) new product to shopping cart
     @PutMapping
     public ResponseEntity<ShoppingCart> addProductToShoppingCartController(@RequestBody @Valid AddProductToShoppingCartRequest requestAddProductToShoppingCartController) throws NotFoundException {
         shoppingCartService.addProductToShoppingCart(requestAddProductToShoppingCartController);
@@ -33,7 +34,7 @@ public class ShoppingCartController {
 
     //endpoint: GET (read/retrieve) a product from the shopping cart
     @GetMapping("/{customerId}")
-    public ResponseEntity<ShoppingCartDTO> getProductFromShoppingCart(@PathVariable("customerId") Long customerId) throws NotFoundException {
+    public ResponseEntity<ShoppingCartDTO> getProductFromShoppingCartController(@PathVariable("customerId") Long customerId) throws NotFoundException {
         ShoppingCartDTO productFromShoppingCart = shoppingCartService.getProductFromShoppingCart(customerId);
         return new ResponseEntity<>(productFromShoppingCart, HttpStatus.OK);
     }
