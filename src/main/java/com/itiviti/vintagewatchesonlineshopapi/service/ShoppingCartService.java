@@ -20,12 +20,12 @@ public class ShoppingCartService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingCartService.class);
 
-    //Inversion of Control (IoC)
-    @Autowired
     private final ShoppingCartRepository shoppingCartRepository;
     private final CustomerService customerService;
     private final ProductService productService;
 
+    //Inversion of Control (IoC)
+    @Autowired
     public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CustomerService customerService, ProductService productService) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.customerService = customerService;
@@ -40,13 +40,13 @@ public class ShoppingCartService {
         //retrieve from db the existing customer which will be assigned to the shopping cart (the customer must already be created/exist into db)
         Customer customerAssignedToShoppingCart = customerService.getCustomer(requestAddProductToShoppingCart.getCustomerId());
 
-        ShoppingCart shoppingCart = shoppingCartRepository.findById(requestAddProductToShoppingCart.
-                getCustomerId()).orElse(new ShoppingCart());
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(requestAddProductToShoppingCart.getCustomerId()).orElse(new ShoppingCart());
+
         if (shoppingCart.getCustomerShoppingCart() == null) {
             shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart);
         }
 
-        shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart);
+//        shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart); // Asta trebuie aici????
 
         Product productToBeAddedToTheShoppingCart = productService.getProduct(requestAddProductToShoppingCart.getProductId());
 
@@ -60,7 +60,7 @@ public class ShoppingCartService {
     @Transactional
     public ShoppingCartDTO getProductFromShoppingCart(Long customerId) throws NotFoundException {
         ShoppingCart shoppingCart = shoppingCartRepository.findById(customerId).orElseThrow(() -> new NotFoundException
-                ("Retrieved shopping cart " + customerId + "does not exist."));
+                ("Retrieved shopping cart " + customerId + " does not exist."));
 
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setId(shoppingCart.getCustomerShoppingCart().getId());

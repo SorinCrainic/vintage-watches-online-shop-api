@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class ProductDTO {
 
-    private long id;
+    private Long id;
     private String name;
     private Integer quantity;
     private Double price;
