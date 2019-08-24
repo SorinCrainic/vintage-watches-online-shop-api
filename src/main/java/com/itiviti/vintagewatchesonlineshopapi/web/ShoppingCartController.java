@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/shopping_cart")
 public class ShoppingCartController {
