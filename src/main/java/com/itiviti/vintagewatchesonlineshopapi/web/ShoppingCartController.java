@@ -25,7 +25,7 @@ public class ShoppingCartController {
     }
 
     //an endpoint is a method which exposes a resource on the network
-    //endpoint: POST (add/create) new product to shopping cart
+    //endpoint: PUT (add/create) new product to shopping cart
     @PutMapping
     public ResponseEntity<ShoppingCart> addProductToShoppingCartController(@RequestBody @Valid AddProductToShoppingCartRequest requestAddProductToShoppingCartController) throws NotFoundException {
         shoppingCartService.addProductToShoppingCart(requestAddProductToShoppingCartController);
