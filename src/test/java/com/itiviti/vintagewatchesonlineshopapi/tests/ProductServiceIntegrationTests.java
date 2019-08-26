@@ -33,7 +33,7 @@ public class ProductServiceIntegrationTests {
         productStepsTest.createProductTest();
     }
 
-    //1.2 Test for method createProduct: negative test (not valid request -> missing mandatory parameter (Id in this case), for example)
+    //1.2 Test for method createProduct: negative test (not valid request -> mandatory fields are not populated (in fact, none of the fields are populated in this case))
     @Test(expected = TransactionSystemException.class)
     public void testCreateProduct_whenNotValidRequest_thenThrowException() {
 
@@ -67,7 +67,6 @@ public class ProductServiceIntegrationTests {
         requestUpdateProduct.setQuantity(createdProductTestUpdate.getQuantity() + 1);
         requestUpdateProduct.setImagePath(createdProductTestUpdate.getImagePath());
 
-
         Product updatedProduct = productServiceTest.updateProduct(createdProductTestUpdate.getId(), requestUpdateProduct);
 
         assertThat(updatedProduct, notNullValue());
@@ -81,33 +80,5 @@ public class ProductServiceIntegrationTests {
 
         assertThat(updatedProduct.getQuantity(), not(is(createdProductTestUpdate.getQuantity())));
         assertThat(updatedProduct.getQuantity(), is(requestUpdateProduct.getQuantity()));
-    }
-
-    //3.2 Test for method updateProduct: negative test (not valid request)
-    @Test(expected = AssertionError.class)
-    public void testUpdateProduct_whenNotValidRequest_thenThrowException() throws NotFoundException {
-        Product createdProduct_UpdateProductNegativeTest = productStepsTest.createProductTest();
-        UpdateProductRequest request_UpdateProductNegativeTest = new UpdateProductRequest();
-
-        request_UpdateProductNegativeTest.setName(createdProduct_UpdateProductNegativeTest.getName() + " updated - for negative test");
-        request_UpdateProductNegativeTest.setPrice(createdProduct_UpdateProductNegativeTest.getPrice() + 100);
-        request_UpdateProductNegativeTest.setQuantity(createdProduct_UpdateProductNegativeTest.getQuantity() + 5);
-
-        Product updatedProduct_UpdateProductNegativeTest = productServiceTest.updateProduct(createdProduct_UpdateProductNegativeTest.getId(), request_UpdateProductNegativeTest);
-
-        assertThat(updatedProduct_UpdateProductNegativeTest, notNullValue());
-        assertThat(updatedProduct_UpdateProductNegativeTest.getId(), is(createdProduct_UpdateProductNegativeTest.getId()));
-
-        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), notNullValue());
-        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), not(is(createdProduct_UpdateProductNegativeTest.getName())));
-        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), not(is(request_UpdateProductNegativeTest.getName())));
-
-        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), notNullValue());
-        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), not(is(createdProduct_UpdateProductNegativeTest.getPrice())));
-        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), not(is(request_UpdateProductNegativeTest.getPrice())));
-
-        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), notNullValue());
-        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), not(is(createdProduct_UpdateProductNegativeTest.getQuantity())));
-        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), not(is(request_UpdateProductNegativeTest.getQuantity())));
     }
 }
