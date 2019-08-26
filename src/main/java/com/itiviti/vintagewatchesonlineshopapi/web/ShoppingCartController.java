@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/shopping_cart")
 public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;

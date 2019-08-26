@@ -20,10 +20,10 @@ public class ProductSteps {
 
     public Product createProductTest() {
         CreateProductRequest requestPositiveTest = new CreateProductRequest();
-        requestPositiveTest.setName("Seiko Lord Matic");
+        requestPositiveTest.setName("Atlantic WorldMaster");
         requestPositiveTest.setPrice(1000.00);
         requestPositiveTest.setQuantity(1);
-        requestPositiveTest.setImagePath("img/art1.jpg");
+        requestPositiveTest.setImagePath("img/4_watches/Atlantic_Worldmaster.jpg");
         requestPositiveTest.setProductRate(10.00);
         requestPositiveTest.setProductDescription("Vintage automatic watch, mint condition, collectible.");
 

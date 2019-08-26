@@ -46,8 +46,6 @@ public class ShoppingCartService {
             shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart);
         }
 
-//        shoppingCart.setCustomerShoppingCart(customerAssignedToShoppingCart); // Asta trebuie aici????
-
         Product productToBeAddedToTheShoppingCart = productService.getProduct(requestAddProductToShoppingCart.getProductId());
 
         shoppingCart.addProductToCurrentShoppingCart(productToBeAddedToTheShoppingCart);
