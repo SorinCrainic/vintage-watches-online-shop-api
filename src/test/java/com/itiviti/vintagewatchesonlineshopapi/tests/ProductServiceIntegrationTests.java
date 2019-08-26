@@ -89,53 +89,6 @@ public class ProductServiceIntegrationTests {
         assertThat(updatedProduct.getQuantity(), is(requestUpdateProduct.getQuantity()));
     }
 
-//    //3.2 Test for method updateProduct: negative test (not valid request)
-//    @Test(expected = AssertionError.class)
-//    public void testUpdateProduct_whenNotValidRequest_thenThrowException() throws NotFoundException {
-//        Product createdProduct_UpdateProductNegativeTest = productStepsTest.createProductTest();
-//        UpdateProductRequest request_UpdateProductNegativeTest = new UpdateProductRequest();
-//
-//        request_UpdateProductNegativeTest.setName(createdProduct_UpdateProductNegativeTest.getName() + " updated - for negative test");
-//        request_UpdateProductNegativeTest.setPrice(createdProduct_UpdateProductNegativeTest.getPrice() + 100);
-//        request_UpdateProductNegativeTest.setQuantity(createdProduct_UpdateProductNegativeTest.getQuantity() + 5);
-//
-//        Product updatedProduct_UpdateProductNegativeTest = productServiceTest.updateProduct(createdProduct_UpdateProductNegativeTest.getId(), request_UpdateProductNegativeTest);
-//
-//        assertThat(updatedProduct_UpdateProductNegativeTest, notNullValue());
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getId(), is(createdProduct_UpdateProductNegativeTest.getId()));
-//
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), notNullValue());
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), not(is(createdProduct_UpdateProductNegativeTest.getName())));
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getName(), not(is(request_UpdateProductNegativeTest.getName())));
-//
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), notNullValue());
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), not(is(createdProduct_UpdateProductNegativeTest.getPrice())));
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getPrice(), not(is(request_UpdateProductNegativeTest.getPrice())));
-//
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), notNullValue());
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), not(is(createdProduct_UpdateProductNegativeTest.getQuantity())));
-//        assertThat(updatedProduct_UpdateProductNegativeTest.getQuantity(), not(is(request_UpdateProductNegativeTest.getQuantity())));
-//
-//        productServiceTest.deleteProduct(createdProduct_UpdateProductNegativeTest.getId());
-//        productServiceTest.deleteProduct(updatedProduct_UpdateProductNegativeTest.getId());
-//        productRepository.deleteById(createdProduct_UpdateProductNegativeTest.getId());
-//        productRepository.deleteById(updatedProduct_UpdateProductNegativeTest.getId());
-//    }
-
-    //4.1 Test for method deleteProduct: positive test (valid request)
-    @Test
-    public void testDeleteProduct_whenValidRequest() {
-        Product createdProduct_DeleteProductTest = productStepsTest.createProductTest();
-
-//        productServiceTest.deleteProduct(createdProduct_DeleteProductTest.getId());
-
-//        productRepository.deleteById(createdProduct_DeleteProductTest.getId());
-        productServiceTest.deleteProduct(createdProduct_DeleteProductTest.getId());
-
-
-        assertThat(createdProduct_DeleteProductTest.getId(), is(nullValue()));
-    }
-
     //4.2 Test for method deleteProduct: negative test (not valid request)
     @Test(expected = EmptyResultDataAccessException.class)
     public void testDeleteProduct_whenNotValidRequest_thenThrowException() throws EmptyResultDataAccessException {
