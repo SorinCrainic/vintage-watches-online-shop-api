@@ -85,4 +85,12 @@ public class ShoppingCartService {
 
         return shoppingCartDTO;
     }
+
+    //Method for DELETING a product (cruD)
+    @Transactional
+    public void deleteAllProductsFromShoppingCart(Long customerId) {
+        LOGGER.info("Erasing shopping cart for " + customerId + " .");
+        shoppingCartRepository.deleteById(customerId);
+        LOGGER.info("Shopping cart for " + customerId + " has been erased.");
+    }
 }

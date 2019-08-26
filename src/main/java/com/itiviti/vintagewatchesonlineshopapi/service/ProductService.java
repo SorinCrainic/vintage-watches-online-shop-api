@@ -56,7 +56,7 @@ public class ProductService {
         return productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product " + id + " not exist."));
     }
 
-    //Method for UPDATE-ing a product (crUd)
+    //Method for UPDATING a product (crUd)
     public Product updateProduct(long id, UpdateProductRequest requestForUpdate) throws NotFoundException {
         LOGGER.info("Update-ing product {} with {}", id, requestForUpdate);
         Product productToBeUpdated = getProduct(id);
@@ -66,7 +66,7 @@ public class ProductService {
         return productRepository.save(productToBeUpdated);
     }
 
-    //Method for DELETE-ing a product (cruD)
+    //Method for DELETING a product (cruD)
     public void deleteProduct(long id) {
         LOGGER.info("Deleting product {}", id);
         productRepository.deleteById(id);

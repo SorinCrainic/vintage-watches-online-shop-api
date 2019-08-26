@@ -38,4 +38,11 @@ public class ShoppingCartController {
         ShoppingCartDTO productFromShoppingCart = shoppingCartService.getProductFromShoppingCart(customerId);
         return new ResponseEntity<>(productFromShoppingCart, HttpStatus.OK);
     }
+
+    //endpoint: DELETE (remove) all products from the shopping cart
+    @DeleteMapping("/{customerId}")
+    public ResponseEntity deleteAllProductsFromShoppingCartController(@PathVariable("customerId") Long customerId) {
+        shoppingCartService.deleteAllProductsFromShoppingCart(customerId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
